@@ -6,4 +6,4 @@ else
     mode="$1"
 fi
 
-npm run --prefix ~/ANeosMhs/DistributionPackages/MHS.Site/Resources/Public/Tailwind $mode
+npm run --prefix ./DistributionPackages/MHS.Site/Resources/Public/Tailwind $mode
