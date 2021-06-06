@@ -1,0 +1,25 @@
+prototype(MHS.Site:Content.MoinHero) < prototype(Neos.Neos:ContentComponent) {
+
+    image = ${q(node).property('image')}
+    divider = ${q(node).property('divider')}
+
+    renderer = afx`
+        <section class="relative lg:h-screen">
+
+            <div class="lg:wrap lg:flex lg:h-full lg:space-x-8 lg:py-header">
+                <div class="h-screen -lg:relative lg:h-auto lg:w-1/2">
+                    <MHS.Site:Component.OptimizedImage class="-lg:wrap h-full w-full py-header object-bottom object-contain" asset={props.image} />
+                    <MHS.Site:Component.OptimizedImage class="absolute z-0 left-0 bottom-0 w-full min-h-[15rem] object-cover drag-none lg:min-h-[20rem]" asset={props.divider} />
+                </div>
+                <Neos.Neos:ContentCollection attributes.class="-lg:wrap lg:w-1/3 lg:pb-60 lg:self-center" nodePath='column' />
+            </div>
+
+            <div class="absolute top-0 h-screen w-full z-[-1] moin-header--bg"></div>
+            <!-- Disable Header: sticky. Otherwise Content pushed down -->
+            <style>#menu--navbar{'{position: fixed;}'}</style>
+        </section>
+    `
+
+}
+
+

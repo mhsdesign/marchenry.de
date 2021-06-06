@@ -1,0 +1,31 @@
+prototype(MHS.Site:Document.Portfolio.Category) < prototype(MHS.Site:Document.AbstractPage) {
+    body.content = Neos.Fusion:Component {
+        main = Neos.Neos:ContentCollection {
+            nodePath = 'main'
+        }
+
+        catItems = ${q(node).closest('[instanceof MHS.Site:Document.Portfolio.Root]').find('[instanceof MHS.Site:Document.Portfolio.Item]').filterByReference(node, 'categories')}
+        // test = ${q(node).filterByReference('categories', node)}
+        // test = ${q(site).children('main').children().randomElement()}
+
+        // cat-items = ${q(node).closest('[instanceof MHS.Site:Document.PortfolioRoot]').children().filterByReference(node, 'categories')}
+        // filterByReference(node, 'categories')
+        // port-items = {q(node).property('categories')}
+
+        renderer = afx`
+            <main class="py-32">
+                <Neos.Fusion:Loop items={props.catItems}>
+                    <h2>{q(item).property('title')}</h2>
+                </Neos.Fusion:Loop>
+                Portfolio Cat-{q(node).property('title')}
+                {props.main}
+            </main>
+        `
+
+        // renderer = afx`
+        //     <main class="py-32">
+        //         {props.test}
+        //     </main>
+        // `
+    }
+}

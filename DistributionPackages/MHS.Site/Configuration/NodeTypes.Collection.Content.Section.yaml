@@ -1,0 +1,24 @@
+# doesnt seem to be working
+# not in use 
+# mhs
+
+
+##
+# A collection of contents that can be placed in a column
+#
+'MHS.Site:Collection.Content.Section':
+  superTypes:
+    Neos.Neos:ContentCollection: true
+  constraints:
+    nodeTypes:
+      '*': false
+      'MHS.Site:Constraint.Content.Section': true
+
+##
+# Constraint-supertype that makes contents available in columns
+#
+# this allows to define the usage on the content nodetypes and
+# is recommended if a collection contains many different types
+#
+'MHS.Site:Constraint.Content.Section':
+  abstract: true

@@ -1,0 +1,29 @@
+'MHS.Site:Content.MoinHero':
+  superTypes:
+    'Neos.Neos:Content': true
+  ui:
+    label: Hero
+    icon: icon-chalkboard
+    position: 600
+    inspector:
+      groups:
+        hero:
+          label: 'Hero Settings'
+          icon: icon-image
+  properties:
+    image:
+      ui:
+        inspector:
+          group: hero
+      options:
+        preset: 'image.asset'
+    divider:
+      ui:
+        label: 'Divider'
+        inspector:
+          group: hero
+      options:
+        preset: 'image.asset'
+  childNodes:
+    column:
+      type: 'Neos.Neos:ContentCollection'

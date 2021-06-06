@@ -1,0 +1,38 @@
+prototype(MHS.Site:Component.OptimizedImage) < prototype(Neos.Fusion:Component) {
+    # api
+    asset = null
+    alt = null
+    node = null
+    class = null
+
+    @context{
+        asset = ${this.node ? q(node).property('image') : this.asset }
+        alt = ${this.node ? q(node).property('alternativeText') : this.alt }
+        // node = ${this.node}
+        class = ${this.class}
+    }
+
+    imageSrc = Neos.Fusion:Case {
+        image {
+            condition = ${asset}
+            renderer = Sitegeist.Kaleidoscope:AssetImageSource {
+                asset = ${asset}
+            }
+        }
+        dummyImage {
+            condition = ${site.context.inBackend}
+            renderer = Sitegeist.Kaleidoscope:DummyImageSource
+        }
+    }
+
+    renderer = Sitegeist.Kaleidoscope:Image {
+        imageSource=${props.imageSrc}
+        class=${props.class}
+        alt=${props.alt}
+        srcset="320w, 400w, 600w, 800w, 1000w, 1200w, 1600w"
+        sizes="(min-width: 800px) 1000px, (min-width: 480px) 800px, (min-width: 320px) 440px, 100vw"
+        // width="400"
+        // height="400"
+    }
+}
+

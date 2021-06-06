@@ -1,0 +1,21 @@
+'MHS.Site:Content.ImageColumn':
+  superTypes:
+    'Neos.Neos:Content': true
+    'MHS.Site:Mixin.InspectorGeneral': true
+    'MHS.Site:Mixin.Image': true
+  ui:
+    label: 'Image Text'
+    icon: icon-images
+    position: 600
+  properties:
+    align:
+      type: boolean
+      ui:
+        label: 'Desktop: Align left or right'
+        reloadIfChanged: true
+        inspector:
+          group: general
+          editor: Neos.Neos/Inspector/Editors/BooleanEditor
+  childNodes:
+    column:
+      type: 'Neos.Neos:ContentCollection'

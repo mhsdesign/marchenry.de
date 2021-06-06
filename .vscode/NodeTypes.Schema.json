@@ -1,0 +1,1410 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/Sebobo/Shel.Neos.Schema/main/NodeTypes.Schema.json",
+    "title": "Neos NodeTypes Schema",
+    "type": "object",
+    "minProperties": 1,
+    "definitions": {
+        "position": {
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "integer",
+                    "minimum": 0
+                }
+            ]
+        },
+        "help": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "label": {
+            "title": "Shown in the Neos UI",
+            "description": "Can be \"i18n\" for automatic translation based on the name, a translation shorthand string like \"My.Package:NodeTypes.MyContent:ui.label\", or a simple string.",
+            "x-intellij-html-description": "<p><b>Examples:</b></p>\n<ul><li><i>i18n</i> looks automatically for a matching translation based on the name</li><li><i>My.Package:NodeTypes.MyContent:ui.label</i> uses translation shorthand string</li><li><i>Some static label</i></li></ul>\n",
+            "examples": [
+                "i18n",
+                "Neos.Neos:NodeTypes.Document:ui.label",
+                "Some label"
+            ],
+            "anyOf": [
+                {
+                    "const": "i18n"
+                },
+                {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            ]
+        },
+        "icon": {
+            "type": "string",
+            "title": "Shown in the Neos UI",
+            "description": "All free FontAwesome 5 icons can be referenced by their icon-classes. For backwards compatibility reason you can still use a \"icon-\" prefix.",
+            "x-intellij-html-description": "<p>All free <a href=\"https://fontawesome.com/icons?d=gallery&m=free\">FontAwesome 5 icons</a> can be referenced by their icon-classes. For backwards compatibility reason you can still use a \"icon-\" prefix.</p><p><b>Examples:</b></p>\n<ul><li><i>fas fa-home</i></li><li><i>icon-home</i></li></ul></p>",
+            "examples": [
+                "fas fa-home",
+                "icon-home"
+            ]
+        },
+        "editor": {
+            "anyOf": [
+                {
+                    "properties": {
+                        "editor": {
+                            "type": "string",
+                            "not": {
+                                "enum": [
+                                    "Neos.Neos/Inspector/Editors/TextAreaEditor",
+                                    "Neos.Neos/Inspector/Editors/TextFieldEditor",
+                                    "Neos.Neos/Inspector/Editors/SelectBoxEditor",
+                                    "Neos.Neos/Inspector/Editors/CodeEditor",
+                                    "Neos.Neos/Inspector/Editors/AssetEditor",
+                                    "Neos.Neos/Inspector/Editors/BooleanEditor",
+                                    "Neos.Neos/Inspector/Editors/ReferenceEditor",
+                                    "Neos.Neos/Inspector/Editors/ReferencesEditor",
+                                    "Neos.Neos/Inspector/Editors/LinkEditor",
+                                    "Neos.Neos/Inspector/Editors/ImageEditor",
+                                    "Neos.Neos/Inspector/Editors/DateTimeEditor"
+                                ]
+                            }
+                        },
+                        "editorOptions": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "editor": {
+                            "const": "Neos.Neos/Inspector/Editors/TextAreaEditor"
+                        },
+                        "editorOptions": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "disabled": {
+                                    "type": [
+                                        "boolean",
+                                        "null"
+                                    ],
+                                    "default": false
+                                },
+                                "maxlength": {
+                                    "type": [
+                                        "integer",
+                                        "null"
+                                    ],
+                                    "minimum": 1,
+                                    "default": null
+                                },
+                                "readonly": {
+                                    "type": [
+                                        "boolean",
+                                        "null"
+                                    ],
+                                    "default": false
+                                },
+                                "placeholder": {
+                                    "$ref": "#/definitions/label"
+                                },
+                                "minRows": {
+                                    "type": [
+                                        "integer",
+                                        "null"
+                                    ],
+                                    "minimum": 1,
+                                    "default": 2
+                                },
+                                "expandedRows": {
+                                    "type": [
+                                        "integer",
+                                        "null"
+                                    ],
+                                    "minimum": 2,
+                                    "default": 6
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "editor": {
+                            "const": "Neos.Neos/Inspector/Editors/SelectBoxEditor"
+                        },
+                        "editorOptions": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "highlight": {
+                                    "type": "boolean"
+                                },
+                                "dataSourceIdentifier": {
+                                    "type": "string"
+                                },
+                                "dataSourceUri": {
+                                    "type": "string"
+                                },
+                                "dataSourceDisableCaching": {
+                                    "type": "boolean"
+                                },
+                                "dataSourceAdditionalData": {
+                                    "type": "object"
+                                },
+                                "allowEmpty": {
+                                    "type": "boolean"
+                                },
+                                "placeholder": {
+                                    "$ref": "#/definitions/label"
+                                },
+                                "disabled": {
+                                    "type": "boolean",
+                                    "default": false
+                                },
+                                "multiple": {
+                                    "type": "boolean"
+                                },
+                                "minimumResultsForSearch": {
+                                    "type": "integer",
+                                    "minimum": 1,
+                                    "default": 5
+                                },
+                                "threshold": {
+                                    "type": "integer",
+                                    "default": 2,
+                                    "minimum": 1
+                                },
+                                "values": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "object",
+                                        "properties": {
+                                            "label": {
+                                                "$ref": "#/definitions/label"
+                                            },
+                                            "icon": {
+                                                "$ref": "#/definitions/icon"
+                                            },
+                                            "group": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "editor": {
+                            "const": "Neos.Neos/Inspector/Editors/AssetEditor"
+                        },
+                        "editorOptions": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "placeholder": {
+                                    "$ref": "#/definitions/label"
+                                },
+                                "multiple": {
+                                    "type": "boolean",
+                                    "default": true
+                                },
+                                "imagesOnly": {
+                                    "type": "boolean",
+                                    "default": false
+                                },
+                                "disabled": {
+                                    "type": "boolean",
+                                    "default": false
+                                },
+                                "features": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "upload": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "mediaBrowser": {
+                                            "type": "boolean",
+                                            "default": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "editor": {
+                            "title": "Will render a checkbox in the Neos UI",
+                            "const": "Neos.Neos/Inspector/Editors/BooleanEditor"
+                        },
+                        "editorOptions": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "disabled": {
+                                    "type": "boolean",
+                                    "default": false
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "editor": {
+                            "const": "Neos.Neos/Inspector/Editors/CodeEditor"
+                        },
+                        "editorOptions": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "highlightingMode": {
+                                    "type": "string",
+                                    "default": "htmlmixed"
+                                },
+                                "buttonLabel": {
+                                    "$ref": "#/definitions/label"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "editor": {
+                            "const": "Neos.Neos/Inspector/Editors/DateTimeEditor"
+                        },
+                        "editorOptions": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "placeholder": {
+                                    "$ref": "#/definitions/label"
+                                },
+                                "format": {
+                                    "type": "string"
+                                },
+                                "disabled": {
+                                    "type": "boolean"
+                                },
+                                "minuteStep": {
+                                    "type": "integer",
+                                    "default": 5
+                                },
+                                "timeConstraints": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "minutes": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "min": {
+                                                    "type": "integer",
+                                                    "minimum": 0,
+                                                    "maximum": 59,
+                                                    "default": 0
+                                                },
+                                                "max": {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 59,
+                                                    "default": 59
+                                                },
+                                                "step": {
+                                                    "type": "integer",
+                                                    "minimum": 1,
+                                                    "maximum": 30,
+                                                    "default": 5
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "editor": {
+                            "const": "Neos.Neos/Inspector/Editors/ImageEditor"
+                        },
+                        "editorOptions": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "disabled": {
+                                    "type": "boolean",
+                                    "default": false
+                                },
+                                "maximumFileSize": {
+                                    "type": [
+                                        "integer",
+                                        "null"
+                                    ],
+                                    "default": null
+                                },
+                                "constraints": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "mediaTypes": {
+                                            "type": "array",
+                                            "uniqueItems": true,
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "features": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "crop": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "resize": {
+                                            "type": "boolean",
+                                            "default": false
+                                        },
+                                        "mediaBrowser": {
+                                            "type": "boolean",
+                                            "default": true
+                                        },
+                                        "upload": {
+                                            "type": "boolean",
+                                            "default": true
+                                        }
+                                    }
+                                },
+                                "crop": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "aspectRatio": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "options": {
+                                                    "type": "object",
+                                                    "additionalProperties": {
+                                                        "type": "object",
+                                                        "additionalProperties": false,
+                                                        "properties": {
+                                                            "width": {
+                                                                "type": "integer",
+                                                                "minimum": 0
+                                                            },
+                                                            "height": {
+                                                                "type": "integer",
+                                                                "minimum": 0
+                                                            },
+                                                            "label": {
+                                                                "$ref": "#/definitions/label"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "enableOriginal": {
+                                                    "type": "boolean",
+                                                    "default": true
+                                                },
+                                                "allowCustom": {
+                                                    "type": "boolean",
+                                                    "default": true
+                                                },
+                                                "locked": {
+                                                    "type": "object",
+                                                    "additionalProperties": false,
+                                                    "properties": {
+                                                        "width": {
+                                                            "type": "integer",
+                                                            "minimum": 0
+                                                        },
+                                                        "height": {
+                                                            "type": "integer",
+                                                            "minimum": 0
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "editor": {
+                            "const": "Neos.Neos/Inspector/Editors/LinkEditor"
+                        },
+                        "editorOptions": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "nodeTypes": {
+                                    "oneOf": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "array",
+                                            "uniqueItems": true,
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "startingPoint": {
+                                    "type": "string"
+                                },
+                                "placeholder": {
+                                    "$ref": "#/definitions/label"
+                                },
+                                "disabled": {
+                                    "type": "boolean",
+                                    "default": false
+                                },
+                                "assets": {
+                                    "type": "boolean",
+                                    "default": true
+                                },
+                                "nodes": {
+                                    "type": "boolean",
+                                    "default": true
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "editor": {
+                            "const": "Neos.Neos/Inspector/Editors/ReferenceEditor"
+                        },
+                        "editorOptions": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "placeholder": {
+                                    "$ref": "#/definitions/label"
+                                },
+                                "threshold": {
+                                    "type": "integer",
+                                    "default": 2,
+                                    "minimum": 1
+                                },
+                                "nodeTypes": {
+                                    "type": "array",
+                                    "uniqueItems": true,
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "startingPoint": {
+                                    "type": "string"
+                                },
+                                "disabled": {
+                                    "type": "boolean",
+                                    "default": false
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "editor": {
+                            "const": "Neos.Neos/Inspector/Editors/ReferencesEditor"
+                        },
+                        "editorOptions": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "placeholder": {
+                                    "$ref": "#/definitions/label"
+                                },
+                                "threshold": {
+                                    "type": "integer",
+                                    "default": 2,
+                                    "minimum": 1
+                                },
+                                "nodeTypes": {
+                                    "type": "array",
+                                    "uniqueItems": true,
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "startingPoint": {
+                                    "type": "string"
+                                },
+                                "disabled": {
+                                    "type": "boolean",
+                                    "default": false
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "editor": {
+                            "const": "Neos.Neos/Inspector/Editors/TextFieldEditor"
+                        },
+                        "editorOptions": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "placeholder": {
+                                    "$ref": "#/definitions/label"
+                                },
+                                "disabled": {
+                                    "type": [
+                                        "boolean",
+                                        "null"
+                                    ],
+                                    "default": false
+                                },
+                                "maxlength": {
+                                    "type": [
+                                        "integer",
+                                        "null"
+                                    ],
+                                    "minimum": 1,
+                                    "default": null
+                                },
+                                "readonly": {
+                                    "type": [
+                                        "boolean",
+                                        "null"
+                                    ],
+                                    "default": false
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "inlineEditor": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "properties": {
+                "editorOptions": {
+                    "properties": {
+                        "autoparagraph": {
+                            "type": "boolean"
+                        },
+                        "placeholder": {
+                            "$ref": "#/definitions/label"
+                        },
+                        "linking": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "boolean"
+                            },
+                            "properties": {
+                                "anchor": {
+                                    "type": "boolean"
+                                },
+                                "title": {
+                                    "type": "boolean"
+                                },
+                                "relNoFollow": {
+                                    "type": "boolean"
+                                },
+                                "targetBlank": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
+                        "formatting": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "boolean"
+                            },
+                            "properties": {
+                                "strong": {
+                                    "type": "boolean"
+                                },
+                                "em": {
+                                    "type": "boolean"
+                                },
+                                "u": {
+                                    "type": "boolean"
+                                },
+                                "sub": {
+                                    "type": "boolean"
+                                },
+                                "sup": {
+                                    "type": "boolean"
+                                },
+                                "del": {
+                                    "type": "boolean"
+                                },
+                                "p": {
+                                    "type": "boolean"
+                                },
+                                "h1": {
+                                    "type": "boolean"
+                                },
+                                "h2": {
+                                    "type": "boolean"
+                                },
+                                "h3": {
+                                    "type": "boolean"
+                                },
+                                "h4": {
+                                    "type": "boolean"
+                                },
+                                "h5": {
+                                    "type": "boolean"
+                                },
+                                "h6": {
+                                    "type": "boolean"
+                                },
+                                "pre": {
+                                    "type": "boolean"
+                                },
+                                "underline": {
+                                    "type": "boolean"
+                                },
+                                "strikethrough": {
+                                    "type": "boolean"
+                                },
+                                "removeFormat": {
+                                    "type": "boolean"
+                                },
+                                "left": {
+                                    "type": "boolean"
+                                },
+                                "right": {
+                                    "type": "boolean"
+                                },
+                                "center": {
+                                    "type": "boolean"
+                                },
+                                "justify": {
+                                    "type": "boolean"
+                                },
+                                "table": {
+                                    "type": "boolean"
+                                },
+                                "ol": {
+                                    "type": "boolean"
+                                },
+                                "ul": {
+                                    "type": "boolean"
+                                },
+                                "a": {
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "simpleValidator": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "additionalProperties": false
+        },
+        "validation": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "additionalProperties": {
+                "type": [
+                    "object",
+                    "array",
+                    "null"
+                ]
+            },
+            "properties": {
+                "Neos.Neos/Validation/BooleanValidator": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "expectedValue": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "Neos.Neos/Validation/DateTimeValidator": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "locale": {
+                            "type": "string"
+                        },
+                        "strictMode": {
+                            "type": "boolean"
+                        },
+                        "formatLength": {
+                            "enum": [
+                                "default",
+                                "full",
+                                "long",
+                                "medium",
+                                "short"
+                            ]
+                        },
+                        "formatType": {
+                            "enum": [
+                                "date",
+                                "time",
+                                "dateTime"
+                            ]
+                        }
+                    }
+                },
+                "Neos.Neos/Validation/DateTimeRangeValidator": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "earliestDate": {
+                            "type": "string"
+                        },
+                        "latestDate": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "Neos.Neos/Validation/EmailAddressValidator": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "strict": {
+                            "type": "boolean"
+                        },
+                        "checkDns": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "Neos.Neos/Validation/FloatValidator": {
+                    "$ref": "#/definitions/simpleValidator"
+                },
+                "Neos.Neos/Validation/IntegerValidator": {
+                    "$ref": "#/definitions/simpleValidator"
+                },
+                "Neos.Neos/Validation/LabelValidator": {
+                    "$ref": "#/definitions/simpleValidator"
+                },
+                "Neos.Neos/Validation/LocaleIdentifierValidator": {
+                    "$ref": "#/definitions/simpleValidator"
+                },
+                "Neos.Neos/Validation/NumberValidator": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "locale": {
+                            "type": "string"
+                        },
+                        "strictMode": {
+                            "type": "boolean"
+                        },
+                        "formatLength": {
+                            "enum": [
+                                "default",
+                                "full",
+                                "long",
+                                "medium",
+                                "short"
+                            ]
+                        },
+                        "formatType": {
+                            "enum": [
+                                "decimal",
+                                "percent",
+                                "currency"
+                            ]
+                        }
+                    }
+                },
+                "Neos.Neos/Validation/NumberRangeValidator": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "minimum": {
+                            "type": "integer",
+                            "minimum": 0
+                        },
+                        "maximum": {
+                            "type": "integer",
+                            "minimum": 1
+                        }
+                    }
+                },
+                "Neos.Neos/Validation/NotEmptyValidator": {
+                    "$ref": "#/definitions/simpleValidator"
+                },
+                "Neos.Neos/Validation/RegularExpressionValidator": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "regularExpression": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "Neos.Neos/Validation/StringValidator": {
+                    "$ref": "#/definitions/simpleValidator"
+                },
+                "Neos.Neos/Validation/StringLengthValidator": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "minimum": {
+                            "type": "integer",
+                            "minimum": 0
+                        },
+                        "maximum": {
+                            "type": "integer",
+                            "minimum": 1
+                        },
+                        "ignoreHtml": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "Neos.Neos/Validation/TextValidator": {
+                    "$ref": "#/definitions/simpleValidator"
+                },
+                "Neos.Neos/Validation/UuidValidator": {
+                    "$ref": "#/definitions/simpleValidator"
+                }
+            }
+        },
+        "nodeTemplate": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "childNodes": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/nodeTemplateChildNode"
+                    }
+                },
+                "properties": {
+                    "type": "object"
+                },
+                "when": {
+                    "$comment": "EEL-expression to determine whether the template should be applied",
+                    "type": "string"
+                },
+                "withItems": {
+                    "oneOf": [
+                        {
+                            "type": "array"
+                        },
+                        {
+                            "$comment": "An EEL expression",
+                            "type": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        "nodeTemplateChildNode": {
+            "type": "object",
+            "allOf": [{
+                "$ref": "#/definitions/nodeTemplate"
+            }],
+            "properties": {
+                "type": {
+                    "type": "string"
+                },
+                "name": {
+                    "$comment": "Identify the child node this template is applied to by this name",
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+            "abstract": {
+                "type": "boolean"
+            },
+            "final": {
+                "type": "boolean"
+            },
+            "aggregate": {
+                "type": "boolean"
+            },
+            "label": {
+                "$ref": "#/definitions/label"
+            },
+            "constraints": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "nodeTypes": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            },
+            "superTypes": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "boolean"
+                },
+                "$comment": "Provide the most commonly used supertypes for autocompletion",
+                "properties": {
+                    "Neos.Neos:Content": {
+                        "type": "boolean"
+                    },
+                    "Neos.Neos:ContentCollection": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "search": {
+                "type": "object",
+                "properties": {
+                    "fulltext": {
+                        "type": "object",
+                        "properties": {
+                            "enable": {
+                                "type": "boolean"
+                            }
+                        }
+                    }
+                }
+            },
+            "childNodes": {
+                "type": [
+                    "object",
+                    "null"
+                ],
+                "propertyNames": {
+                    "pattern": "^[a-z0-9\\-]+$"
+                },
+                "additionalProperties": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "position": {
+                            "$ref": "#/definitions/position"
+                        },
+                        "type": {
+                            "type": "string"
+                        },
+                        "constraints": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                                "nodeTypes"
+                            ],
+                            "properties": {
+                                "nodeTypes": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "properties": {
+                "type": [
+                    "object",
+                    "null"
+                ],
+                "additionalProperties": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "type": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "enum": [
+                                        "string",
+                                        "DateTime",
+                                        "boolean",
+                                        "integer",
+                                        "reference",
+                                        "references",
+                                        "array",
+                                        "Neos\\Media\\Domain\\Model\\Asset",
+                                        "array<Neos\\Media\\Domain\\Model\\Asset>",
+                                        "Neos\\Media\\Domain\\Model\\ImageInterface"
+                                    ]
+                                }
+                            ]
+                        },
+                        "defaultValue": {
+                            "type": [
+                                "string",
+                                "number",
+                                "boolean",
+                                "null"
+                            ]
+                        },
+                        "search": {
+                            "type": "object",
+                            "properties": {
+                                "fulltextExtractor": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "options": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "properties": {
+                                "preset": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "ui": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "additionalProperties": false,
+                            "properties": {
+                                "label": {
+                                    "$ref": "#/definitions/label"
+                                },
+                                "help": {
+                                    "$ref": "#/definitions/help"
+                                },
+                                "reloadIfChanged": {
+                                    "type": "boolean"
+                                },
+                                "reloadPageIfChanged": {
+                                    "type": "boolean"
+                                },
+                                "inlineEditable": {
+                                    "type": "boolean"
+                                },
+                                "inline": {
+                                    "$ref": "#/definitions/inlineEditor"
+                                },
+                                "showInCreationDialog": {
+                                    "type": [
+                                        "boolean",
+                                        "null"
+                                    ]
+                                },
+                                "inspector": {
+                                    "anyOf": [
+                                        {
+                                            "$ref": "#/definitions/editor"
+                                        },
+                                        {
+                                            "type": [
+                                                "object",
+                                                "null"
+                                            ],
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "hidden": {
+                                                    "type": [
+                                                        "boolean",
+                                                        "null",
+                                                        "string"
+                                                    ]
+                                                },
+                                                "group": {
+                                                    "type": [
+                                                        "string",
+                                                        "null"
+                                                    ]
+                                                },
+                                                "position": {
+                                                    "$ref": "#/definitions/position"
+                                                },
+                                                "editorListeners": {
+                                                    "type": [
+                                                        "object",
+                                                        "null"
+                                                    ],
+                                                    "additionalProperties": {
+                                                        "type": "object",
+                                                        "additionalProperties": false,
+                                                        "properties": {
+                                                            "property": {
+                                                                "type": "string"
+                                                            },
+                                                            "handler": {
+                                                                "type": "string"
+                                                            },
+                                                            "handlerOptions": {
+                                                                "type": "object"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "validation": {
+                            "$ref": "#/definitions/validation"
+                        }
+                    }
+                }
+            },
+            "ui": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "label": {
+                        "$ref": "#/definitions/label"
+                    },
+                    "icon": {
+                        "$ref": "#/definitions/icon"
+                    },
+                    "group": {
+                        "type": "string"
+                    },
+                    "inlineEditable": {
+                        "type": "boolean"
+                    },
+                    "position": {
+                        "$ref": "#/definitions/position"
+                    },
+                    "help": {
+                        "$ref": "#/definitions/help"
+                    },
+                    "search": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "searchCategory": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "creationDialog": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "elements": {
+                                "type": [
+                                    "object",
+                                    "null"
+                                ],
+                                "additionalProperties": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "ui": {
+                                            "anyOf": [
+                                                {
+                                                    "$ref": "#/definitions/editor"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "additionalProperties": false,
+                                                    "properties": {
+                                                        "label": {
+                                                            "$ref": "#/definitions/label"
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "validation": {
+                                            "$ref": "#/definitions/validation"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "inspector": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "tabs": {
+                                "type": "object",
+                                "additionalProperties": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "label": {
+                                            "$ref": "#/definitions/label"
+                                        },
+                                        "position": {
+                                            "$ref": "#/definitions/position"
+                                        },
+                                        "icon": {
+                                            "$ref": "#/definitions/icon"
+                                        }
+                                    }
+                                }
+                            },
+                            "groups": {
+                                "type": "object",
+                                "additionalProperties": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "label": {
+                                            "$ref": "#/definitions/label"
+                                        },
+                                        "position": {
+                                            "$ref": "#/definitions/position"
+                                        },
+                                        "tab": {
+                                            "type": "string"
+                                        },
+                                        "icon": {
+                                            "$ref": "#/definitions/icon"
+                                        },
+                                        "collapsed": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            },
+                            "views": {
+                                "type": "object",
+                                "additionalProperties": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "label": {
+                                            "$ref": "#/definitions/label"
+                                        },
+                                        "position": {
+                                            "$ref": "#/definitions/position"
+                                        },
+                                        "group": {
+                                            "type": "string"
+                                        },
+                                        "view": {
+                                            "type": "string"
+                                        },
+                                        "viewOptions": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "postprocessors": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                        "postprocessor": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "options": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                    "nodeCreationHandlers": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "fusion": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "properties": {
+                            "prototypeGenerator": {
+                                "type": [
+                                    "null",
+                                    "string"
+                                ]
+                            }
+                        }
+                    },
+                    "template": {
+                        "$comment": "Related to functionality provided by https://github.com/Flowpack/Flowpack.NodeTemplates",
+                        "$ref": "#/definitions/nodeTemplate"
+                    }
+                }
+            }
+        }
+    }
+}

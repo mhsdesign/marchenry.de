@@ -1,0 +1,20 @@
+{
+  "name": "Tailwind",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development postcss ./src/tailwind.css -o ../Frontend/index.css -w",
+    "build": "NODE_ENV=production postcss ./src/tailwind.css -o ../Frontend/index.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.2.6",
+    "postcss-cli": "^8.3.1",
+    "postcss-easing-gradients": "^3.0.1",
+    "postcss-import": "^14.0.2",
+    "tailwindcss": "^2.1.2"
+  }
+}

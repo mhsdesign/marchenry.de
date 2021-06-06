@@ -1,0 +1,11 @@
+prototype(MHS.Site:Content.Headline) < prototype(Neos.Neos:ContentComponent) {
+    title = Neos.Neos:Editable {
+        property = 'title'
+    }
+
+    wrap = ${q(node).parent().is('main') ? 'wrap ' : ''}
+
+    renderer = afx`
+        <div class={props.wrap}>{props.title}</div>
+    `
+}

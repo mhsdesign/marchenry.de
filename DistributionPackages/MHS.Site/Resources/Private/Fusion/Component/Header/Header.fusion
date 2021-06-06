@@ -1,0 +1,39 @@
+prototype(MHS.Site:Component.Header) < prototype(Neos.Fusion:Component) {
+    homeLink = Neos.Neos:NodeUri {
+        node = ${site}
+    }
+    menuItems = Neos.Neos:MenuItems {
+        startingPoint = ${site}
+        maximumLevels = 1
+    }
+
+
+    renderer = afx`
+        <header id="menu--navbar" class="sticky top-0 w-full z-50">
+            <div class="flex justify-between items-center wrap py-4">
+                <!-- Logo Image -->
+                <a href={props.homeLink} class="h-header">
+                    <MHS.Site:Component.OptimizedImage class="h-full" asset={q(site).property('brandLogo')} />
+                </a>
+                <!-- Logo Image End-->
+
+                <!-- Menu Items -->
+                <div id="menu--toggle" class="md:!hidden">
+                    <a href="#"></a>
+                </div>
+                <MHS.Site:Component.Header.MenuItemsRenderer items={props.menuItems} />
+            </div>
+        </header>
+        <div id="menu--overlay"></div>
+    `
+
+	@cache {
+		mode = 'cached'
+		entryIdentifier {
+			documentNode = ${documentNode}
+		}
+		entryTags {
+			1 = ${Neos.Caching.nodeTypeTag('Neos.Neos:Document', documentNode)}
+		}
+	}
+}

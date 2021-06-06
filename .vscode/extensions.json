@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "redhat.vscode-yaml",
+        "bradlc.vscode-tailwindcss",
+        "networkteam.neos-fusion",
+        "editorconfig.editorconfig",
+        "ms-vscode-remote.remote-wsl"
+    ]
+}

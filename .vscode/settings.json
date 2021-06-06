@@ -1,0 +1,13 @@
+{
+    "yaml.schemas": {
+        ".vscode/NodeTypes.Schema.json": "DistributionPackages/*/Configuration/NodeTypes*.yaml"
+    },
+    "tailwindCSS.includeLanguages": {
+        "fusion": "html"
+    },
+
+    "emmet.includeLanguages": {
+        "fusion": "html"
+    }
+}
+

@@ -1,0 +1,13 @@
+'MHS.Site:Content.Sections.Two':
+  superTypes:
+    'Neos.Neos:Content': true
+  ui:
+    label: 'Section Two'
+    icon: 'icon-columns'
+    group: 'structure'
+    position: 400
+  childNodes:
+    column0:
+      type: 'Neos.Neos:ContentCollection'
+    column1:
+      type: 'Neos.Neos:ContentCollection'

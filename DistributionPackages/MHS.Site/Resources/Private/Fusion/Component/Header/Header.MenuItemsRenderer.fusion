@@ -1,0 +1,32 @@
+prototype(MHS.Site:Component.Header.MenuItemsRenderer) < prototype(Neos.Fusion:Component) {
+    // items = false
+
+    // @if.has = ${this.items}
+    renderer = afx`
+
+        <div id="menu--wrap" class="">
+            <ul id="menu--list">
+                <Neos.Fusion:Loop items={props.items} itemName="menuItem" @children="itemRenderer">
+                    <li
+                        class={
+                            ((menuItem.state == 'current') ? 'text-secondary' :
+                            ((menuItem.state == 'active') ? 'text-secondary' :
+                            ''))}
+                        >
+                        <Carbon.Link:Link
+                            node={menuItem.node}
+                            backendLink={true}
+                            renderDefaultTagIfNoLink={true}>
+                            { menuItem.label }
+                        </Carbon.Link:Link>
+                        <!--
+                        <MHS.Site:Component.Header.MenuItemsRenderer
+                            items={menuItem.subItems}
+                            />
+                        -->
+                    </li>
+                </Neos.Fusion:Loop>
+            </ul>
+        </div>
+    `
+}

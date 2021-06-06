@@ -1,0 +1,11 @@
+'MHS.Site:Content.Headline':
+  superTypes:
+    'Neos.Neos:Content': true
+  ui:
+    label: Headline
+    icon: icon-header
+    position: 200
+  properties:
+    title:
+      options:
+        preset: 'text.title'

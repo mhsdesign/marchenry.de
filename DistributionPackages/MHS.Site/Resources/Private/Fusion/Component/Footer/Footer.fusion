@@ -1,0 +1,43 @@
+prototype(MHS.Site:Component.Footer) < prototype(Neos.Neos:ContentComponent) {
+    @context.node = ${site}
+    year = ${Date.format(Date.now(), 'Y')}
+    footerInfo = Neos.Neos:Editable {
+        node = ${node}
+        property = 'footerInfo'
+    }
+    footerItems = Neos.Fusion:Loop {
+        items = ${q(node).property('footerItems')}
+        itemName = 'node'
+        itemRenderer = Carbon.Link:Link {
+            node = ${node}
+        }
+    }
+    // footerItems = Neos.Fusion:Collection {
+    //     collection = ${q(site).property('footerItems')}
+    //     itemName = 'node'
+    //     itemRenderer = Carbon.Link:Link {
+    //         node = ${node}
+    //     }
+    // }
+
+    renderer = afx`
+        <footer class="bg-primary-darkest text-white">
+            <div class="wrap min-h-[100px] px-2 flex justify-between items-center">
+                <div>
+                    <p>&copy; {props.year} <span>{props.footerInfo}</span></p>
+                </div>
+                <div>{props.footerItems}</div>
+            </div>
+        </footer>
+    `
+
+    @cache {
+        mode = 'cached'
+        entryIdentifier {
+            site = ${site}
+        }
+        entryTags {
+            1 = ${Neos.Caching.nodeTag(site)}
+        }
+    }
+}

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    mode="dev"
+else
+    mode="$1"
+fi
+
+npm run --prefix ~/ANeosMhs/DistributionPackages/MHS.Site/Resources/Public/Tailwind $mode

@@ -1,0 +1,15 @@
+prototype(MHS.Site:Content.ImageColumn) < prototype(Neos.Neos:ContentComponent) {
+
+    mdAlign = ${q(node).property('align') ? ' md:flex-row-reverse' : ''}
+
+    // image = ${q(node).property('image')}
+    renderer = afx`
+        <section class={"md:flex" + props.mdAlign}>
+            <MHS.Site:Component.OptimizedImage class="w-full object-contain md:w-1/2" node={node} />
+            <Neos.Neos:ContentCollection attributes.class="-md:wrap md:w-wrap/2 md:self-center md:p-8" nodePath='column' />
+        </section>
+    `
+    // renderer = afx`
+    //     <Sitegeist.Lazybones:Image imageSource={props.imageSrc} />
+    // `
+}

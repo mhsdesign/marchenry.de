@@ -1,0 +1,13 @@
+
+'MHS.Site:Document.Portfolio.Root':
+  superTypes:
+    'MHS.Site:Document.AbstractPage': true
+    'MHS.Site:Mixin.InspectorGeneral': true
+  ui:
+    label: 'Portfolio'
+    icon: icon-briefcase
+  constraints:
+    nodeTypes:
+      'MHS.Site:Document.AbstractPage': false
+      'MHS.Site:Document.Portfolio.Category': true
+      'MHS.Site:Document.Portfolio.Item': true

@@ -1,0 +1,13 @@
+
+'MHS.Site:Document.Portfolio.Category':
+  superTypes:
+    'MHS.Site:Document.AbstractPage': true
+    'MHS.Site:Mixin.InspectorGeneral': true
+    'MHS.Site:Constraint.Document.Restricted': true
+  ui:
+    label: 'Portfolio Categorie'
+    icon: icon-tag
+  constraints:
+    nodeTypes:
+      'MHS.Site:Document.AbstractPage': false
+      'MHS.Site:Document.Portfolio.Category': true

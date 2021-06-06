@@ -1,0 +1,116 @@
+prototype(MHS.Site:Document.Portfolio.Item) < prototype(MHS.Site:Document.AbstractPage) {
+    body.content = Neos.Fusion:Component {
+
+        main = Neos.Neos:ContentCollection {
+            nodePath = 'main'
+        }
+
+        title = Neos.Fusion:Tag {
+            tagName = 'h1'
+            content = Neos.Neos:Editable {
+                property = 'title'
+                block = false
+                @process.convertUris = Neos.Neos:ConvertUris
+            }
+            @process.contentElementWrapping = Neos.Neos:ContentElementWrapping
+        }
+
+        // Why doesnt that work for property = 'title' MKS
+        // subTitle = Neos.Neos:Editable {
+        //     property = 'subTitle'
+        // }
+
+        subTitle = Neos.Fusion:Tag {
+            tagName = 'h6'
+            content = Neos.Neos:Editable {
+                property = 'subTitle'
+                block = false
+                @process.convertUris = Neos.Neos:ConvertUris
+            }
+            @process.contentElementWrapping = Neos.Neos:ContentElementWrapping
+        }
+
+        prevItem = Carbon.Link:Link {
+            node = ${q(documentNode).prev('[instanceof MHS.Site:Document.Portfolio.Item]').get(0)}
+            backendLink = ${true}
+        }
+
+        nextItem = Carbon.Link:Link {
+            node = ${q(documentNode).next('[instanceof MHS.Site:Document.Portfolio.Item]').get(0)}
+            backendLink = ${true}
+        }
+        // prev {
+        //     @context.raw = ${q(documentNode).prev('[instanceof MHS.Site:Document.Portfolio.Item]').get(0)}
+        //     title = ${q(raw).property('title')}
+        //     link = Neos.Neos:NodeUri {
+        //         node = ${raw}
+        //     }
+
+        // }
+
+        // next {
+        //     @context.raw = ${q(documentNode).next('[instanceof MHS.Site:Document.Portfolio.Item]').get(0)}
+        //     title = ${q(raw).property('title')}
+        //     link = Neos.Neos:NodeUri {
+        //         node = ${raw}
+        //     }
+        // }
+
+        rootPortfolio = Carbon.Link:Link {
+            node = ${q(node).closest('[instanceof MHS.Site:Document.Portfolio.Root]').get(0)}
+            backendLink = ${true}
+        }
+
+        categories = Neos.Fusion:Loop {
+            @glue = ', '
+            items = ${q(node).property('categories')}
+            itemRenderer = Neos.Fusion:Tag {
+                tagName = 'a'
+                attributes.href = Neos.Neos:NodeUri {
+                    node = ${item}
+                }
+                content = ${q(item).property('title')}
+            }
+        }
+
+        //         <h4 @if={props.categories}>Kategorien:</h4>
+        // <Neos.Fusion:Loop items={props.categories}>
+        //     <a href={}>{q(item).property('title')}</a>
+        // </Neos.Fusion:Loop>
+
+
+        renderer = afx`
+            <main class="">                
+                <MHS.Site:Component.OptimizedImage class="wrap w-full" node={node} />
+                <section class="wrap">
+                    {props.title}
+                    {props.subTitle}
+                </section>
+
+                <section class="wrap md:flex md:flex-row-reverse">
+                    <div class="md:w-1/4">
+
+                        <article @if.has={props.categories}>
+                            <h4>Kategorien</h4>
+                            {props.categories}
+                        </article>
+
+                    </div>
+
+                    <div class="md:w-3/4">
+
+                        {props.main}
+                    
+                    </div>
+                </section>
+
+                <section class="wrap flex justify-between">
+                    {props.prevItem}
+                    {props.rootPortfolio}
+                    {props.nextItem}
+                </section>
+
+            </main>
+        `
+    }
+}

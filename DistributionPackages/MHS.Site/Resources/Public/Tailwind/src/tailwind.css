@@ -1,0 +1,47 @@
+/* ./DistributionPackages/MHS.Site/Resources/Public/Tailwind/tailwind.css */
+@import '../../../Private/Fusion/Content/MoinHero/_MoinHero.css';
+@import '../../../Private/Fusion/Component/Header/_Header.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components{
+
+    body {
+        @apply bg-grey-lightest;
+    }
+
+    .drag-none {
+        user-select: none;
+        pointer-events: none;
+        -moz-user-drag: none;
+        -webkit-user-drag: none;
+    }
+    
+    h1 {
+        @apply font-bold text-5xl text-primary;
+    }
+
+    h2 {
+        @apply font-extrabold text-4xl text-primary-darkest;
+    }
+
+    
+    @responsive {
+        .max-w-wrap {
+            max-width: theme('spacing.wrap');
+        }
+        .max-w-wrap\/2 {
+            max-width: theme('spacing.wrap/2');
+        }
+
+        .wrap {
+            @apply max-w-wrap mx-auto px-4 w-full;
+        }
+
+    }
+
+
+}

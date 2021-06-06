@@ -1,0 +1,56 @@
+prototype(MHS.Site:Document.Portfolio.Root) < prototype(MHS.Site:Document.AbstractPage) {
+    body.content = Neos.Fusion:Component {
+        main = Neos.Neos:ContentCollection {
+            nodePath = 'main'
+        }
+
+        @context{
+            portItemNodes = ${q(node).find('[instanceof MHS.Site:Document.Portfolio.Item]')}
+            portCatNodes = ${q(node).find('[instanceof MHS.Site:Document.Portfolio.Category]')}
+        }
+
+
+        portItems= Neos.Fusion:Loop {
+            items = ${q(node).find('[instanceof MHS.Site:Document.Portfolio.Item]')}
+            itemRenderer = afx`
+                <div>
+                    <Carbon.Link:Link attributes.class="block" node={item} backendLink={true}>
+
+                        <MHS.Site:Component.OptimizedImage class="w-full" asset={q(item).property('image')} />
+                        <h2>{q(item).property('title')}</h2>
+
+                    </Carbon.Link:Link>
+                </div>
+            `
+
+        }
+
+
+// MHS.Site:Component.OptimizedImage {
+//                 @if.has = ${q(item).property('image')}
+//                 class = "w-full"
+//                 asset = ${q(item).property('image')}
+//                 // node = ${item}  doesnt work MKS
+//             }
+        // <Neos.Fusion:Loop items={props.portItems}>
+        //     <h2 @if.first={iterator.isFirst}>Items</h2>
+        //     <h3>{q(item).property('title')}</h3>
+        // </Neos.Fusion:Loop>
+
+
+        renderer = afx`
+            <main>
+                Portfolio Root
+
+                <Neos.Fusion:Loop items={props.portCats}>
+                    <h2 @if.first={iterator.isFirst}>Categories</h2>
+                    <h3>{q(item).property('title')}</h3>
+                </Neos.Fusion:Loop>
+
+                <div class="grid grid-cols-3">{props.portItems}</div>
+
+                {props.main}
+            </main>
+        `
+    }
+}

@@ -1,0 +1,52 @@
+
+Neos:
+  # Add https://docs.neos.io/cms/manual/extending-neos-with-php-flow/custom-eel-helpers
+  #
+  # In composer.json:
+  # "autoload": {
+  #   "psr-4": {
+  #       "MHS\\Site\\": "Classes"
+  #   }
+  # },
+  Fusion:
+    defaultContext:
+      'MHS.Site.Portfolio': 'MHS\Site\Eel\Helper\PortfolioHelper'
+  Flow:
+    mvc:
+      routes:
+        'Neos.Neos':
+          variables:
+            # We prefer URLs without the ".html" suffix
+            defaultUriSuffix: ''
+  Neos:
+    eventLog:
+      enabled: true
+    userInterface:
+      navigateComponent:
+        nodeTree:
+          # number of levels inside the node tree which shall be loaded eagerly, at start.
+          # if you have lots of nodes you should maybe reduce this number of elements.
+          loadingDepth: 2
+        structureTree:
+          loadingDepth: 2
+    fusion:
+      autoInclude:
+        MHS.Site: true
+    # nodeTypes:
+    #   groups:
+    #     contentBlocks:
+    #       position: 110
+    #       label: 'Content Blocks'
+    Ui:
+      frontendConfiguration:
+        hotkeys: ~
+      initialState:
+        ui:
+          leftSideBar:
+            contentTree:
+              # by default in the Neos UI open the content tree
+              isHidden: false
+
+Carbon:
+  Link:
+    defaultPhoneCountryCode: '0049'
